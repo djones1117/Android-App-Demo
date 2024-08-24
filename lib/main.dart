@@ -65,7 +65,7 @@ switch (selectedIndex) {
     page = GeneratorPage();
     break;
   case 1:
-    page = Placeholder();
+    page = FavoritesPage();
     break;
   default:
     throw UnimplementedError('no widget for $selectedIndex');
@@ -152,6 +152,19 @@ class GeneratorPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+class FavoritesPage extends StatelessWidget {
+  const FavoritesPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("Hello")
+      ],
+    );
+    
   }
 }
 
