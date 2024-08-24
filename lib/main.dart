@@ -51,28 +51,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
-  var selectedIndex = 0;  
+  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
- 
-
-Widget page;
-switch (selectedIndex) {
-  case 0:
-    page = GeneratorPage();
-    break;
-  case 1:
-    page = FavoritesPage();
-    break;
-  default:
-    throw UnimplementedError('no widget for $selectedIndex');
-}
-
-
-
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = GeneratorPage();
+        break;
+      case 1:
+        page = FavoritesPage();
+        break;
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
 
     return Scaffold(
       body: Row(
@@ -109,7 +102,6 @@ switch (selectedIndex) {
     );
   }
 }
-
 
 class GeneratorPage extends StatelessWidget {
   @override
@@ -154,19 +146,6 @@ class GeneratorPage extends StatelessWidget {
     );
   }
 }
-class FavoritesPage extends StatelessWidget {
-  const FavoritesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Hello")
-      ],
-    );
-    
-  }
-}
 
 class BigCard extends StatelessWidget {
   const BigCard({
@@ -192,6 +171,66 @@ class BigCard extends StatelessWidget {
           style: style,
           semanticsLabel: pair.asPascalCase,
         ),
+      ),
+    );
+  }
+}
+
+class FavoritesPage extends StatelessWidget {
+  const FavoritesPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          Image.asset('assets/images/logo-horizontal.png'),
+          SizedBox(
+            height: 10,
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    fontFamily: 'Inter', // Use the Inter font family
+                    fontWeight: FontWeight.bold, // Bold style
+                    fontSize: 23, // Font size 23px
+                    color: Color(0xFF000000), // Color #000000
+                  ),
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  'Email address',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    color: Color(0xFF000000),
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+              ],
+            ),
+          ),
+          TextField(
+            decoration: InputDecoration(
+              hintText:
+                  'hello@example.com', // Placeholder text inside the TextField
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ],
       ),
     );
   }
