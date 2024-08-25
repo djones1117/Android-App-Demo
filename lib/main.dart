@@ -58,10 +58,10 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
+        page = LoginPage();
         break;
       case 1:
-        page = FavoritesPage();
+        page = SignUp();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -103,81 +103,107 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class GeneratorPage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
-    return Center(
+    // var appState = context.watch<MyAppState>();
+    return SafeArea(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          BigCard(pair: pair),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
+          SizedBox(
+            height: 20,
           ),
+          Image.asset('assets/images/logo-horizontal.png'),
+          SizedBox(
+            height: 10,
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Log in',
+                  style: TextStyle(
+                    fontFamily: 'Inter', // Use the Inter font family
+                    fontWeight: FontWeight.bold, // Bold style
+                    fontSize: 23, // Font size 23px
+                    color: Color(0xFF000000), // Color #000000
+                  ),
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  'Email address',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    color: Color(0xFF000000),
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+              ],
+            ),
+          ),
+          TextField(
+            decoration: InputDecoration(
+              hintText:
+                  'hello@example.com', // Placeholder text inside the TextField
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Password',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.normal,
+                fontSize: 16,
+                color: Color(0xFF000000),
+              ),
+            ),
+          ),
+          PasswordField(),
+          SizedBox(
+            height: 32,
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor:
+                  Color(0xFF185FD9), // Background color for the inactive state
+              foregroundColor: Colors.white, // Text color
+              textStyle: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600, // Semi-bold
+                fontSize: 18, // Font size 18px
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8), // Radius 8
+              ),
+              minimumSize:
+                  Size(double.infinity, 50), // Full-width button with height 50
+            ),
+            onPressed: () {
+              // Define the action when the button is pressed
+            },
+            child: Text('Log in'),
+          )
         ],
       ),
     );
   }
 }
 
-class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Text(
-          pair.asLowerCase,
-          style: style,
-          semanticsLabel: pair.asPascalCase,
-        ),
-      ),
-    );
-  }
-}
-
-class FavoritesPage extends StatelessWidget {
-  const FavoritesPage({super.key});
+class SignUp extends StatelessWidget {
+  const SignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -250,25 +276,85 @@ class FavoritesPage extends StatelessWidget {
             height: 32,
           ),
           ElevatedButton(
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Color(0xFF185FD9), // Background color for the inactive state
-    foregroundColor: Colors.white, // Text color  
-    textStyle: TextStyle(
-      fontFamily: 'Inter',
-      fontWeight: FontWeight.w600, // Semi-bold
-      fontSize: 18, // Font size 18px
-    ),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8), // Radius 8
-    ),
-    minimumSize: Size(double.infinity, 50), // Full-width button with height 50
-  ),
-  onPressed: () {
-    // Define the action when the button is pressed
-  },
-  child: Text('Sign up'),
-)
+            style: ElevatedButton.styleFrom(
+              backgroundColor:
+                  Color(0xFF185FD9), // Background color for the inactive state
+              foregroundColor: Colors.white, // Text color
+              textStyle: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600, // Semi-bold
+                fontSize: 18, // Font size 18px
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8), // Radius 8
+              ),
+              minimumSize:
+                  Size(double.infinity, 50), // Full-width button with height 50
+            ),
+            onPressed: () {
+              // Define the action when the button is pressed
+            },
+            child: Text('Sign up'),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          TextButton(
+            onPressed: () {
+              // Define the action when the "Forgot Password?" button is pressed
+            },
+            child: Text(
+              'Forgot password?',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w500, // Medium style
+                fontSize: 16, // Font size 16px
+                color: Color(0xFF185FD9), // Color #185FD9
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 48,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Divider(
+                  color: Color(0xFF7A7A7A), // Color of the line
+                  thickness: 1, // Thickness of the line
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  'or sign up with',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400, // Normal weight
+                    fontSize: 16, // Font size 16px
+                    color: Color(0xFF7A7A7A), // Color #7A7A7A
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Divider(
+                  color: Color(0xFF7A7A7A), // Color of the line
+                  thickness: 1, // Thickness of the line
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 32,),
+          Row(
+            children: [
+              Image.asset('assets/images/Google.png'), // just photos until we add oauth
+              Image.asset('assets/images/facebook.png'),
+              Image.asset('assets/images/Apple.png'),
+            ],
+          ),
+          SizedBox(height: 57,),
 
+          
         ],
       ),
     );
@@ -306,6 +392,3 @@ class PasswordFieldState extends State<PasswordField> {
     );
   }
 }
-
-
- 
