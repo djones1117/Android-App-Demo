@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
+              color: Colors.white,
               child: page,
             ),
           ),
@@ -230,8 +230,82 @@ class FavoritesPage extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
           ),
+          SizedBox(
+            height: 16,
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Password',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.normal,
+                fontSize: 16,
+                color: Color(0xFF000000),
+              ),
+            ),
+          ),
+          PasswordField(),
+          SizedBox(
+            height: 32,
+          ),
+          ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Color(0xFF185FD9), // Background color for the inactive state
+    foregroundColor: Colors.white, // Text color  
+    textStyle: TextStyle(
+      fontFamily: 'Inter',
+      fontWeight: FontWeight.w600, // Semi-bold
+      fontSize: 18, // Font size 18px
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8), // Radius 8
+    ),
+    minimumSize: Size(double.infinity, 50), // Full-width button with height 50
+  ),
+  onPressed: () {
+    // Define the action when the button is pressed
+  },
+  child: Text('Sign up'),
+)
+
         ],
       ),
     );
   }
 }
+
+class PasswordField extends StatefulWidget {
+  @override
+  PasswordFieldState createState() => PasswordFieldState();
+}
+
+class PasswordFieldState extends State<PasswordField> {
+  bool _obscureText = true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      obscureText: _obscureText,
+      decoration: InputDecoration(
+        hintText: '••••••••', // Placeholder text
+        border: OutlineInputBorder(),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: _togglePasswordVisibility,
+        ),
+      ),
+    );
+  }
+}
+
+
+ 
