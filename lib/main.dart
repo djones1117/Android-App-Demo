@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         ),
         home: MyHomePage(),
+        // routes: {
+        //   '/login': (context) => LoginPage(), // this line  defines the route
+        // },
       ),
     );
   }
@@ -344,17 +347,55 @@ class SignUp extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 32,),
+          SizedBox(
+            height: 32,
+          ),
           Row(
             children: [
-              Image.asset('assets/images/Google.png'), // just photos until we add oauth
+              Image.asset(
+                  'assets/images/Google.png'), // just photos until we add oauth
               Image.asset('assets/images/facebook.png'),
               Image.asset('assets/images/Apple.png'),
             ],
           ),
-          SizedBox(height: 57,),
-
-          
+          SizedBox(
+            height: 57,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "You already have an account? ",
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Color(0xFF7A7A7A),
+                ),
+              ),
+              SizedBox(
+                width: 25,
+              ),
+              GestureDetector(
+                onTap: () {
+                  print('Login button pressed');
+                },
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0xFF185FD9),
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 48,
+          ),
         ],
       ),
     );
