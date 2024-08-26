@@ -11,27 +11,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   english_words: ^4.0.0
   provider: ^6.0.0
+  http: ^0.13.3  # This line was indented incorrectly before
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
-
 
   assets:
     - assets/images/logo-horizontal.png
     - assets/images/Apple.png
     - assets/images/facebook.png
     - assets/images/Google.png
-    
-  
 
   fonts:
     - family: Inter
