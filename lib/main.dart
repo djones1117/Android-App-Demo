@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -23,9 +22,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         ),
         home: MyHomePage(),
-        // routes: {
-        //   '/login': (context) => LoginPage(), // this line  defines the route
-        // },
       ),
     );
   }
@@ -37,57 +33,30 @@ class MyAppState extends ChangeNotifier {
 
 class MyHomePage extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  var selectedIndex = 0;
-
+class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = SignUp();
-        break;
-      case 1:
-        page = LoginPage();
-        break;
-      default:
-        throw UnimplementedError('no widget for $selectedIndex');
-    }
-
     return Scaffold(
-      body: Row(
-        children: [
-          SafeArea(
-            child: NavigationRail(
-              extended: false,
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
-                  label: Text('Favorites'),
-                ),
-              ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (value) {
-                setState(() {
-                  selectedIndex = value;
-                });
-              },
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.white,
-              child: page,
-            ),
-          ),
-        ],
+      body: Container(
+        color: Colors.white,
+        child: Navigator(
+          onGenerateRoute: (settings) {
+            Widget page;
+            if (settings.name == '/') {
+              page = SignUp(); // Default page
+            } else if (settings.name == '/login') {
+              page = LoginPage();
+            } else if (settings.name == '/signup') {
+              page = SignUp();
+            } else {
+              throw UnimplementedError('Unknown route: ${settings.name}');
+            }
+            return MaterialPageRoute(builder: (_) => page);
+          },
+        ),
       ),
     );
   }
@@ -266,6 +235,7 @@ class LoginPage extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   print('sign up button pressed');
+                  Navigator.pushReplacementNamed(context, '/signup');
                 },
                 child: Text(
                   "Sign Up",
@@ -382,25 +352,28 @@ class SignUp extends StatelessWidget {
             //   print('sign up button pressed');
             // },
             onPressed: () async {
-  final response = await http.post(
-    Uri.parse('https://noahs-user-management-jo363h3rtq-ue.a.run.app/create_account'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'username': 'socjones11117', // Replace with actual username input
-      'email': 'socjones21@yahoo.com', // Replace with actual email input
-    }),
-  );
+              final response = await http.post(
+                Uri.parse(
+                    'https://noahs-user-management-jo363h3rtq-ue.a.run.app/create_account'),
+                headers: <String, String>{
+                  'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: jsonEncode(<String, String>{
+                  'username':
+                      'socjones11117', // Replace with actual username input
+                  'email':
+                      'socjones21gmail.com', // Replace with actual email input
+                }),
+              );
 
-  if (response.statusCode == 200) {
-    // If the server returns an OK response, parse the JSON.
-    print('Account created successfully.');
-  } else {
-    // If the server did not return a 200 OK response, throw an exception.
-    throw Exception('Failed to create account.');
-  }
-},       
+              if (response.statusCode == 200) {
+                // If the server returns an OK response, parse the JSON.
+                print('Account created successfully.');
+              } else {
+                // If the server did not return a 200 OK response, throw an exception.
+                throw Exception('Failed to create account.');
+              }
+            },
             child: Text('Sign up'),
           ),
           SizedBox(
@@ -455,6 +428,7 @@ class SignUp extends StatelessWidget {
             height: 32,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
                   'assets/images/Google.png'), // just photos until we add oauth
@@ -483,7 +457,7 @@ class SignUp extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   print('Login button pressed');
-                  // Navigator.pushNamed(context, '/login');
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 child: Text(
                   "Login",
