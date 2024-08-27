@@ -360,9 +360,9 @@ class SignUp extends StatelessWidget {
                 },
                 body: jsonEncode(<String, String>{
                   'username':
-                      'socjones11117', // Replace with actual username input
+                      'socjones7', // Replace with actual username input
                   'email':
-                      'socjones21gmail.com', // Replace with actual email input
+                      'djones111797@gmail.com', // Replace with actual email input
                 }),
               );
 
