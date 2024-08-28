@@ -21,7 +21,11 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         ),
-        home: MyHomePage(),
+         initialRoute: '/signup', // Set SignUp as the initial route
+        routes: {
+        '/login': (context) => LoginPage(),   // Route for the LoginPage
+        '/signup': (context) => SignUp(),     // Route for the SignUp page
+      },
       ),
     );
   }
@@ -31,229 +35,231 @@ class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  MyHomePageState createState() => MyHomePageState();
-}
+// class MyHomePage extends StatefulWidget {
+//   @override
+//   MyHomePageState createState() => MyHomePageState();
+// }
 
-class MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Navigator(
-          onGenerateRoute: (settings) {
-            Widget page;
-            if (settings.name == '/') {
-              page = SignUp(); // Default page
-            } else if (settings.name == '/login') {
-              page = LoginPage();
-            } else if (settings.name == '/signup') {
-              page = SignUp();
-            } else {
-              throw UnimplementedError('Unknown route: ${settings.name}');
-            }
-            return MaterialPageRoute(builder: (_) => page);
-          },
-        ),
-      ),
-    );
-  }
-}
+// class MyHomePageState extends State<MyHomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Container(
+//         color: Colors.white,
+//         child: Navigator(
+//           onGenerateRoute: (settings) {
+//             Widget page;
+//             if (settings.name == '/') {
+//               page = SignUp(); // Default page
+//             } else if (settings.name == '/login') {
+//               page = LoginPage();
+//             } else if (settings.name == '/signup') {
+//               page = SignUp();
+//             } else {
+//               throw UnimplementedError('Unknown route: ${settings.name}');
+//             }
+//             return MaterialPageRoute(builder: (_) => page);
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var appState = context.watch<MyAppState>();
-    return SafeArea(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Image.asset('assets/images/logo-horizontal.png'),
-          SizedBox(
-            height: 10,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Image.asset('assets/images/logo-horizontal.png'),
+            SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Log in',
+                    style: TextStyle(
+                      fontFamily: 'Inter', // Use the Inter font family
+                      fontWeight: FontWeight.bold, // Bold style
+                      fontSize: 23, // Font size 23px
+                      color: Color(0xFF000000), // Color #000000
+                    ),
+                  ),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text(
+                    'Email address',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 16,
+                      color: Color(0xFF000000),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                ],
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText:
+                    'hello@example.com', // Placeholder text inside the TextField
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Password',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
+                  color: Color(0xFF000000),
+                ),
+              ),
+            ),
+            PasswordField(),
+            SizedBox(
+              height: 32,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    Color(0xFF185FD9), // Background color for the inactive state
+                foregroundColor: Colors.white, // Text color
+                textStyle: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600, // Semi-bold
+                  fontSize: 18, // Font size 18px
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8), // Radius 8
+                ),
+                minimumSize:
+                    Size(double.infinity, 50), // Full-width button with height 50
+              ),
+              onPressed: () {
+                // Define the action when the button is pressed
+              },
+              child: Text('Log in'),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            TextButton(
+              onPressed: () {
+                // Define the action when the "Forgot Password?" button is pressed
+              },
+              child: Text(
+                'Forgot password?',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w500, // Medium style
+                  fontSize: 16, // Font size 16px
+                  color: Color(0xFF185FD9), // Color #185FD9
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 48,
+            ),
+            Row(
               children: [
-                Text(
-                  'Log in',
-                  style: TextStyle(
-                    fontFamily: 'Inter', // Use the Inter font family
-                    fontWeight: FontWeight.bold, // Bold style
-                    fontSize: 23, // Font size 23px
-                    color: Color(0xFF000000), // Color #000000
+                Expanded(
+                  child: Divider(
+                    color: Color(0xFF7A7A7A), // Color of the line
+                    thickness: 1, // Thickness of the line
                   ),
                 ),
-                SizedBox(
-                  height: 24,
-                ),
-                Text(
-                  'Email address',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16,
-                    color: Color(0xFF000000),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    'or log in with',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400, // Normal weight
+                      fontSize: 16, // Font size 16px
+                      color: Color(0xFF7A7A7A), // Color #7A7A7A
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: 8,
+                Expanded(
+                  child: Divider(
+                    color: Color(0xFF7A7A7A), // Color of the line
+                    thickness: 1, // Thickness of the line
+                  ),
                 ),
               ],
             ),
-          ),
-          TextField(
-            decoration: InputDecoration(
-              hintText:
-                  'hello@example.com', // Placeholder text inside the TextField
-              border: OutlineInputBorder(),
+            SizedBox(
+              height: 32,
             ),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Password',
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.normal,
-                fontSize: 16,
-                color: Color(0xFF000000),
-              ),
+            Row(
+              children: [
+                Image.asset(
+                    'assets/images/Google.png'), // just photos until we add oauth
+                Image.asset('assets/images/facebook.png'),
+                Image.asset('assets/images/Apple.png'),
+              ],
             ),
-          ),
-          PasswordField(),
-          SizedBox(
-            height: 32,
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor:
-                  Color(0xFF185FD9), // Background color for the inactive state
-              foregroundColor: Colors.white, // Text color
-              textStyle: TextStyle(
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600, // Semi-bold
-                fontSize: 18, // Font size 18px
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8), // Radius 8
-              ),
-              minimumSize:
-                  Size(double.infinity, 50), // Full-width button with height 50
+            SizedBox(
+              height: 57,
             ),
-            onPressed: () {
-              // Define the action when the button is pressed
-            },
-            child: Text('Log in'),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          TextButton(
-            onPressed: () {
-              // Define the action when the "Forgot Password?" button is pressed
-            },
-            child: Text(
-              'Forgot password?',
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w500, // Medium style
-                fontSize: 16, // Font size 16px
-                color: Color(0xFF185FD9), // Color #185FD9
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 48,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Divider(
-                  color: Color(0xFF7A7A7A), // Color of the line
-                  thickness: 1, // Thickness of the line
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  'or log in with',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400, // Normal weight
-                    fontSize: 16, // Font size 16px
-                    color: Color(0xFF7A7A7A), // Color #7A7A7A
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Divider(
-                  color: Color(0xFF7A7A7A), // Color of the line
-                  thickness: 1, // Thickness of the line
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 32,
-          ),
-          Row(
-            children: [
-              Image.asset(
-                  'assets/images/Google.png'), // just photos until we add oauth
-              Image.asset('assets/images/facebook.png'),
-              Image.asset('assets/images/Apple.png'),
-            ],
-          ),
-          SizedBox(
-            height: 57,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Don't have an account? ",
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Color(0xFF7A7A7A),
-                ),
-              ),
-              SizedBox(
-                width: 25,
-              ),
-              GestureDetector(
-                onTap: () {
-                  print('sign up button pressed');
-                  Navigator.pushReplacementNamed(context, '/signup');
-                },
-                child: Text(
-                  "Sign Up",
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Don't have an account? ",
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                    color: Color(0xFF185FD9),
-                    decoration: TextDecoration.underline,
+                    color: Color(0xFF7A7A7A),
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 48,
-          ),
-        ],
+                SizedBox(
+                  width: 25,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    print('sign up button pressed');
+                    Navigator.pushReplacementNamed(context, '/signup');
+                  },
+                  child: Text(
+                    "Sign Up",
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0xFF185FD9),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 48,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -264,218 +270,220 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Image.asset('assets/images/logo-horizontal.png'),
-          SizedBox(
-            height: 10,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Image.asset('assets/images/logo-horizontal.png'),
+            SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Sign Up',
+                    style: TextStyle(
+                      fontFamily: 'Inter', // Use the Inter font family
+                      fontWeight: FontWeight.bold, // Bold style
+                      fontSize: 23, // Font size 23px
+                      color: Color(0xFF000000), // Color #000000
+                    ),
+                  ),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text(
+                    'Email address',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 16,
+                      color: Color(0xFF000000),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                ],
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText:
+                    'hello@example.com', // Placeholder text inside the TextField
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Password',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
+                  color: Color(0xFF000000),
+                ),
+              ),
+            ),
+            PasswordField(),
+            SizedBox(
+              height: 32,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    Color(0xFF185FD9), // Background color for the inactive state
+                foregroundColor: Colors.white, // Text color
+                textStyle: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600, // Semi-bold
+                  fontSize: 18, // Font size 18px
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8), // Radius 8
+                ),
+                minimumSize:
+                    Size(double.infinity, 50), // Full-width button with height 50
+              ),
+              // onPressed: () {
+              //   print('sign up button pressed');
+              // },
+              onPressed: () async {
+                final response = await http.post(
+                  Uri.parse(
+                      'https://noahs-user-management-jo363h3rtq-ue.a.run.app/create_account'),
+                  headers: <String, String>{
+                    'Content-Type': 'application/json; charset=UTF-8',
+                  },
+                  body: jsonEncode(<String, String>{
+                    'username':
+                        'socjones7', // Replace with actual username input
+                    'email':
+                        'djones111797@gmail.com', // Replace with actual email input
+                  }),
+                );
+      
+                if (response.statusCode == 200) {
+                  // If the server returns an OK response, parse the JSON.
+                  print('Account created successfully.');
+                } else {
+                  // If the server did not return a 200 OK response, throw an exception.
+                  throw Exception('Failed to create account.');
+                }
+              },
+              child: Text('Sign up'),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            TextButton(
+              onPressed: () {
+                // Define the action when the "Forgot Password?" button is pressed
+              },
+              child: Text(
+                'Forgot password?',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w500, // Medium style
+                  fontSize: 16, // Font size 16px
+                  color: Color(0xFF185FD9), // Color #185FD9
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 48,
+            ),
+            Row(
               children: [
-                Text(
-                  'Sign Up',
-                  style: TextStyle(
-                    fontFamily: 'Inter', // Use the Inter font family
-                    fontWeight: FontWeight.bold, // Bold style
-                    fontSize: 23, // Font size 23px
-                    color: Color(0xFF000000), // Color #000000
+                Expanded(
+                  child: Divider(
+                    color: Color(0xFF7A7A7A), // Color of the line
+                    thickness: 1, // Thickness of the line
                   ),
                 ),
-                SizedBox(
-                  height: 24,
-                ),
-                Text(
-                  'Email address',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16,
-                    color: Color(0xFF000000),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    'or sign up with',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400, // Normal weight
+                      fontSize: 16, // Font size 16px
+                      color: Color(0xFF7A7A7A), // Color #7A7A7A
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: 8,
+                Expanded(
+                  child: Divider(
+                    color: Color(0xFF7A7A7A), // Color of the line
+                    thickness: 1, // Thickness of the line
+                  ),
                 ),
               ],
             ),
-          ),
-          TextField(
-            decoration: InputDecoration(
-              hintText:
-                  'hello@example.com', // Placeholder text inside the TextField
-              border: OutlineInputBorder(),
+            SizedBox(
+              height: 32,
             ),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Password',
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.normal,
-                fontSize: 16,
-                color: Color(0xFF000000),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                    'assets/images/Google.png'), // just photos until we add oauth
+                Image.asset('assets/images/facebook.png'),
+                Image.asset('assets/images/Apple.png'),
+              ],
             ),
-          ),
-          PasswordField(),
-          SizedBox(
-            height: 32,
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor:
-                  Color(0xFF185FD9), // Background color for the inactive state
-              foregroundColor: Colors.white, // Text color
-              textStyle: TextStyle(
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600, // Semi-bold
-                fontSize: 18, // Font size 18px
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8), // Radius 8
-              ),
-              minimumSize:
-                  Size(double.infinity, 50), // Full-width button with height 50
+            SizedBox(
+              height: 57,
             ),
-            // onPressed: () {
-            //   print('sign up button pressed');
-            // },
-            onPressed: () async {
-              final response = await http.post(
-                Uri.parse(
-                    'https://noahs-user-management-jo363h3rtq-ue.a.run.app/create_account'),
-                headers: <String, String>{
-                  'Content-Type': 'application/json; charset=UTF-8',
-                },
-                body: jsonEncode(<String, String>{
-                  'username':
-                      'socjones7', // Replace with actual username input
-                  'email':
-                      'djones111797@gmail.com', // Replace with actual email input
-                }),
-              );
-
-              if (response.statusCode == 200) {
-                // If the server returns an OK response, parse the JSON.
-                print('Account created successfully.');
-              } else {
-                // If the server did not return a 200 OK response, throw an exception.
-                throw Exception('Failed to create account.');
-              }
-            },
-            child: Text('Sign up'),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          TextButton(
-            onPressed: () {
-              // Define the action when the "Forgot Password?" button is pressed
-            },
-            child: Text(
-              'Forgot password?',
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w500, // Medium style
-                fontSize: 16, // Font size 16px
-                color: Color(0xFF185FD9), // Color #185FD9
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 48,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Divider(
-                  color: Color(0xFF7A7A7A), // Color of the line
-                  thickness: 1, // Thickness of the line
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  'or sign up with',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400, // Normal weight
-                    fontSize: 16, // Font size 16px
-                    color: Color(0xFF7A7A7A), // Color #7A7A7A
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Divider(
-                  color: Color(0xFF7A7A7A), // Color of the line
-                  thickness: 1, // Thickness of the line
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 32,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                  'assets/images/Google.png'), // just photos until we add oauth
-              Image.asset('assets/images/facebook.png'),
-              Image.asset('assets/images/Apple.png'),
-            ],
-          ),
-          SizedBox(
-            height: 57,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "You already have an account? ",
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Color(0xFF7A7A7A),
-                ),
-              ),
-              SizedBox(
-                width: 25,
-              ),
-              GestureDetector(
-                onTap: () {
-                  print('Login button pressed');
-                  Navigator.pushReplacementNamed(context, '/login');
-                },
-                child: Text(
-                  "Login",
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "You already have an account? ",
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                    color: Color(0xFF185FD9),
-                    decoration: TextDecoration.underline,
+                    color: Color(0xFF7A7A7A),
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 48,
-          ),
-        ],
+                SizedBox(
+                  width: 25,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    print('Login button pressed');
+                    Navigator.pushReplacementNamed(context, '/login');
+                  },
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0xFF185FD9),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 48,
+            ),
+          ],
+        ),
       ),
     );
   }
