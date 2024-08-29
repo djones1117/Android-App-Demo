@@ -19,13 +19,13 @@ class MyApp extends StatelessWidget {
         title: 'Android App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         ),
-         initialRoute: '/signup', // Set SignUp as the initial route
+        initialRoute: '/signup', // Set SignUp as the initial route
         routes: {
-        '/login': (context) => LoginPage(),   // Route for the LoginPage
-        '/signup': (context) => SignUp(),     // Route for the SignUp page
-      },
+          '/login': (context) => LoginPage(), // Route for the LoginPage
+          '/signup': (context) => SignUp(), // Route for the SignUp page
+        },
       ),
     );
   }
@@ -71,15 +71,16 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // var appState = context.watch<MyAppState>();
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
             SizedBox(
-              height: 20,
+              height: 40,
             ),
             Image.asset('assets/images/logo-horizontal.png'),
             SizedBox(
-              height: 10,
+              height: 40,
             ),
             Align(
               alignment: Alignment.centerLeft,
@@ -135,14 +136,17 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 8,
+            ),
             PasswordField(),
             SizedBox(
               height: 32,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    Color(0xFF185FD9), // Background color for the inactive state
+                backgroundColor: Color(
+                    0xFF185FD9), // Background color for the inactive state
                 foregroundColor: Colors.white, // Text color
                 textStyle: TextStyle(
                   fontFamily: 'Inter',
@@ -152,11 +156,41 @@ class LoginPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8), // Radius 8
                 ),
-                minimumSize:
-                    Size(double.infinity, 50), // Full-width button with height 50
+                minimumSize: Size(
+                    double.infinity, 50), // Full-width button with height 50
               ),
-              onPressed: () {
-                // Define the action when the button is pressed
+              onPressed: () async {
+                // Replace 'socjones29' and 'Milan17' with  actual username and password variables
+                final response = await http.post(
+                  Uri.parse(
+                      'https://noahs-user-management-jo363h3rtq-ue.a.run.app/get_session_token'),
+                  headers: <String, String>{
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                  body: {
+                    'grant_type': 'password',
+                    'username': 'socjones29',
+                    'password': 'Milan17',
+                    'scope': '',
+                    'client_id': 'string',
+                    'client_secret': 'string',
+                  },
+                );
+
+                if (response.statusCode == 200) {
+                  // Parse the JSON response
+                  final Map<String, dynamic> responseData =
+                      jsonDecode(response.body);
+                  final String accessToken = responseData['access_token'];
+
+                  // Print the access token to the console (or store it as needed)
+                  print('Access Token: $accessToken');
+
+                  // Navigate to the next page logic here
+                } else {
+                  // Handle the error - show an error message to the user
+                  print('Failed to login: ${response.statusCode}');
+                }
               },
               child: Text('Log in'),
             ),
@@ -212,6 +246,7 @@ class LoginPage extends StatelessWidget {
               height: 32,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                     'assets/images/Google.png'), // just photos until we add oauth
@@ -271,15 +306,16 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
             SizedBox(
-              height: 20,
+              height: 40,
             ),
             Image.asset('assets/images/logo-horizontal.png'),
             SizedBox(
-              height: 10,
+              height: 40,
             ),
             Align(
               alignment: Alignment.centerLeft,
@@ -335,14 +371,17 @@ class SignUp extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 8,
+            ),
             PasswordField(),
             SizedBox(
               height: 32,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    Color(0xFF185FD9), // Background color for the inactive state
+                backgroundColor: Color(
+                    0xFF185FD9), // Background color for the inactive state
                 foregroundColor: Colors.white, // Text color
                 textStyle: TextStyle(
                   fontFamily: 'Inter',
@@ -352,8 +391,8 @@ class SignUp extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8), // Radius 8
                 ),
-                minimumSize:
-                    Size(double.infinity, 50), // Full-width button with height 50
+                minimumSize: Size(
+                    double.infinity, 50), // Full-width button with height 50
               ),
               // onPressed: () {
               //   print('sign up button pressed');
@@ -367,12 +406,12 @@ class SignUp extends StatelessWidget {
                   },
                   body: jsonEncode(<String, String>{
                     'username':
-                        'socjones7', // Replace with actual username input
+                        'socjones29', // Replace with actual username input
                     'email':
                         'djones111797@gmail.com', // Replace with actual email input
                   }),
                 );
-      
+
                 if (response.statusCode == 200) {
                   // If the server returns an OK response, parse the JSON.
                   print('Account created successfully.');
